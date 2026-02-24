@@ -1,0 +1,17 @@
+{
+  "dev": {
+    "environment": "dev",
+    "application": "revbc",
+    "owner": "infra"
+  },
+  "uat": {
+    "environment": "uat",
+    "application": "revbc",
+    "owner": "infra"
+  },
+  "prod": {
+    "environment": "prod",
+    "application": "revbc",
+    "owner": "infra"
+  }
+}

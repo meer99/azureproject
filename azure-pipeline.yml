@@ -1,0 +1,31 @@
+trigger:
+  branches:
+    include:
+      - main
+      - master
+
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: dev
+    values:
+      - dev
+      - uat
+      - prod
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - checkout: self
+
+  - task: AzureCLI@2
+    displayName: Deploy modular infra
+    inputs:
+      azureSubscription: $(azureServiceConnection)
+      scriptType: bash
+      scriptLocation: inlineScript
+      inlineScript: |
+        chmod +x /home/vsts/work/1/s/deploy.sh
+        /home/vsts/work/1/s/deploy.sh '${{ parameters.environment }}' 'rg-ae-revbc'
