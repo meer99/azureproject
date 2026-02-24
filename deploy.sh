@@ -25,9 +25,6 @@ if [ ! -f "$PARAMETERS_FILE" ]; then
   exit 1
 fi
 
-# Load tags from tags.json and set the Environment tag
-TAGS=$(jq -r --arg env "$ENVIRONMENT" '. + {"Environment": $env} | to_entries | map("\(.key)=\(.value)") | join(" ")' "$TAGS_FILE")
-
 echo "============================================"
 echo "Deploying to environment: $ENVIRONMENT"
 echo "Resource Group: $RESOURCE_GROUP"

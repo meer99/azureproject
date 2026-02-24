@@ -111,6 +111,7 @@ module containerAppsEnvironment 'modules/containerAppsEnvironment.bicep' = {
     logAnalyticsId: logAnalytics.outputs.logAnalyticsId
     privateEndpointName: caePrivateEndpointName
     subnetId: subnet.id
+    infrastructureSubnetId: subnet.id
     vnetId: vnet.id
     regionName: location
   }

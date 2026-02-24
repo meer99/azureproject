@@ -16,6 +16,9 @@ param privateEndpointName string
 @description('Resource ID of the subnet for the private endpoint')
 param subnetId string
 
+@description('Resource ID of the subnet for the Container Apps Environment infrastructure')
+param infrastructureSubnetId string
+
 @description('Resource ID of the virtual network for DNS zone link')
 param vnetId string
 
@@ -40,6 +43,7 @@ resource containerAppsEnvironment 'Microsoft.App/managedEnvironments@2023-05-01'
     }
     vnetConfiguration: {
       internal: true
+      infrastructureSubnetId: infrastructureSubnetId
     }
   }
 }

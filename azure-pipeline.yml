@@ -21,6 +21,7 @@ variables:
   templateFile: 'main.bicep'
   parametersFile: 'parameters/parameters.${{ parameters.environment }}.json'
   tagsFile: 'parameters/tags.json'
+  # sqlAdminPassword must be defined as a secret pipeline variable or linked from an Azure Key Vault variable group
 
 stages:
   - stage: Validate
