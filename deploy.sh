@@ -10,7 +10,7 @@ set -euo pipefail
 ENVIRONMENT=${1:?"Usage: ./deploy.sh <environment> (dev|uat|prod)"}
 RESOURCE_GROUP="rg-ae-revbc"
 TEMPLATE_FILE="main.bicep"
-PARAMETERS_FILE="parameters/parameters.${ENVIRONMENT}.json"
+PARAMETERS_FILE="parameters/parameters.json"
 TAGS_FILE="parameters/tags.json"
 
 # Validate environment
@@ -40,6 +40,7 @@ az deployment group create \
   --resource-group "$RESOURCE_GROUP" \
   --template-file "$TEMPLATE_FILE" \
   --parameters "$PARAMETERS_FILE" \
+  --parameters environment="$ENVIRONMENT" \
   --parameters tags="$TAGS_JSON" \
   --parameters sqlAdminPassword="$(az keyvault secret show --vault-name kv-ae-revbc --name sql-admin-password --query value -o tsv)" \
   --name "deploy-${ENVIRONMENT}-$(date +%Y%m%d%H%M%S)" \

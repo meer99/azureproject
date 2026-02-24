@@ -19,7 +19,7 @@ parameters:
 variables:
   resourceGroup: 'rg-ae-revbc'
   templateFile: 'main.bicep'
-  parametersFile: 'parameters/parameters.${{ parameters.environment }}.json'
+  parametersFile: 'parameters/parameters.json'
   tagsFile: 'parameters/tags.json'
   # sqlAdminPassword must be defined as a secret pipeline variable or linked from an Azure Key Vault variable group
 
@@ -51,6 +51,7 @@ stages:
                   --resource-group $(resourceGroup) \
                   --template-file $(templateFile) \
                   --parameters $(parametersFile) \
+                  --parameters environment="${{ parameters.environment }}" \
                   --parameters tags="$TAGS_JSON" \
                   --parameters sqlAdminPassword="$(sqlAdminPassword)"
 
@@ -79,6 +80,7 @@ stages:
                         --resource-group $(resourceGroup) \
                         --template-file $(templateFile) \
                         --parameters $(parametersFile) \
+                        --parameters environment="${{ parameters.environment }}" \
                         --parameters tags="$TAGS_JSON" \
                         --parameters sqlAdminPassword="$(sqlAdminPassword)" \
                         --name "deploy-${{ parameters.environment }}-$(Build.BuildId)" \
