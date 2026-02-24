@@ -5,8 +5,10 @@ param privateLinkResourceId string
 param vnetResourceId string
 param tags object = {}
 
+var privateDnsZoneName = 'privatelink.${environment().suffixes.sqlServerHostname}'
+
 resource dnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
-  name: 'privatelink.database.windows.net'
+  name: privateDnsZoneName
   location: 'global'
   tags: tags
 }
