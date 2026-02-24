@@ -14,6 +14,11 @@ case "$ENVIRONMENT" in
     ;;
 esac
 
+if [[ -z "${SQL_ADMIN_PASSWORD:-}" ]]; then
+  echo "Set SQL_ADMIN_PASSWORD environment variable before deployment."
+  exit 1
+fi
+
 TAGS_JSON=$(jq -c --arg env "$ENVIRONMENT" '.[$env]' "$SCRIPT_DIR/tags.json")
 
 az deployment group create \
@@ -21,4 +26,5 @@ az deployment group create \
   --template-file "$SCRIPT_DIR/main.bicep" \
   --parameters "@$SCRIPT_DIR/parameters.json" \
   --parameters environment="$ENVIRONMENT" \
+  --parameters sqlAdministratorPassword="$SQL_ADMIN_PASSWORD" \
   --parameters tags="$TAGS_JSON"

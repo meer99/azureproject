@@ -2,6 +2,7 @@ param jobName string
 param location string
 param managedEnvironmentId string
 param userAssignedIdentityId string
+param image string = 'mcr.microsoft.com/k8se/quickstart-jobs:latest'
 param tags object = {}
 
 resource job 'Microsoft.App/jobs@2024-03-01' = {
@@ -29,7 +30,7 @@ resource job 'Microsoft.App/jobs@2024-03-01' = {
       containers: [
         {
           name: 'job-container'
-          image: 'mcr.microsoft.com/k8se/quickstart-jobs:latest'
+          image: image
           resources: {
             cpu: 1
             memory: '0.5Gi'

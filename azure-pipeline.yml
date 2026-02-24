@@ -27,5 +27,6 @@ steps:
       scriptType: bash
       scriptLocation: inlineScript
       inlineScript: |
-        chmod +x /home/vsts/work/1/s/deploy.sh
-        /home/vsts/work/1/s/deploy.sh '${{ parameters.environment }}' 'rg-ae-revbc'
+        chmod +x "$(Build.SourcesDirectory)/deploy.sh"
+        export SQL_ADMIN_PASSWORD="$(sqlAdministratorPassword)"
+        "$(Build.SourcesDirectory)/deploy.sh" '${{ parameters.environment }}' 'rg-ae-revbc'

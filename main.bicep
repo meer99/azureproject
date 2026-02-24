@@ -17,6 +17,8 @@ param acrName string = 'acraetestrevbc'
 param caeName string = 'cae-ae-revbc'
 param containerAppJobBillName string = 'caj-ae-bill'
 param containerAppJobDataName string = 'caj-ae-data'
+param containerAppJobBillImage string = 'mcr.microsoft.com/k8se/quickstart-jobs:latest'
+param containerAppJobDataImage string = 'mcr.microsoft.com/k8se/quickstart-jobs:latest'
 param sqlServerName string = 'sql-ae-revbc'
 param sqlDatabaseName string = 'db-ae-revbc'
 param acrPrivateEndpointName string = 'pe-ae-cr'
@@ -29,6 +31,7 @@ param tags object = {}
 
 var privateEndpointSubnetResourceId = resourceId(subscription().subscriptionId, networkResourceGroupName, 'Microsoft.Network/virtualNetworks/subnets', virtualNetworkName, subnetName)
 var networkVnetResourceId = resourceId(subscription().subscriptionId, networkResourceGroupName, 'Microsoft.Network/virtualNetworks', virtualNetworkName)
+var caeInfrastructureSubnetResourceId = privateEndpointSubnetResourceId
 
 module managedIdentityModule './modules/managed-identity.bicep' = {
   name: 'managedIdentity-${environment}'
@@ -63,6 +66,7 @@ module caeModule './modules/cae.bicep' = {
   params: {
     environmentName: caeName
     location: location
+    infrastructureSubnetResourceId: caeInfrastructureSubnetResourceId
     tags: tags
   }
 }
@@ -74,6 +78,7 @@ module billJobModule './modules/container-app-job.bicep' = {
     location: location
     managedEnvironmentId: caeModule.outputs.environmentId
     userAssignedIdentityId: managedIdentityModule.outputs.identityId
+    image: containerAppJobBillImage
     tags: tags
   }
 }
@@ -85,6 +90,7 @@ module dataJobModule './modules/container-app-job.bicep' = {
     location: location
     managedEnvironmentId: caeModule.outputs.environmentId
     userAssignedIdentityId: managedIdentityModule.outputs.identityId
+    image: containerAppJobDataImage
     tags: tags
   }
 }
@@ -102,6 +108,9 @@ module sqlServerModule './modules/sql-server.bicep' = {
 
 module sqlDatabaseModule './modules/sql-database.bicep' = {
   name: 'sqlDatabase-${environment}'
+  dependsOn: [
+    sqlServerModule
+  ]
   params: {
     serverName: sqlServerName
     databaseName: sqlDatabaseName

@@ -32,6 +32,12 @@
     "containerAppJobDataName": {
       "value": "caj-ae-data"
     },
+    "containerAppJobBillImage": {
+      "value": "mcr.microsoft.com/k8se/quickstart-jobs:latest"
+    },
+    "containerAppJobDataImage": {
+      "value": "mcr.microsoft.com/k8se/quickstart-jobs:latest"
+    },
     "sqlServerName": {
       "value": "sql-ae-revbc"
     },
@@ -49,9 +55,6 @@
     },
     "sqlAdministratorLogin": {
       "value": "sqladminrevbc"
-    },
-    "sqlAdministratorPassword": {
-      "value": "REPLACE-WITH-SECURE-PASSWORD"
     }
   }
 }
