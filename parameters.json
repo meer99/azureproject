@@ -1,0 +1,60 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus"
+    },
+    "networkResourceGroupName": {
+      "value": "rg-ae-net"
+    },
+    "virtualNetworkName": {
+      "value": "vnet-ae-net"
+    },
+    "subnetName": {
+      "value": "snet-ae-revbcnet"
+    },
+    "managedIdentityName": {
+      "value": "mi-ae-revbc"
+    },
+    "logAnalyticsName": {
+      "value": "log-ae-revbc"
+    },
+    "acrName": {
+      "value": "acraetestrevbc"
+    },
+    "caeName": {
+      "value": "cae-ae-revbc"
+    },
+    "containerAppJobBillName": {
+      "value": "caj-ae-bill"
+    },
+    "containerAppJobDataName": {
+      "value": "caj-ae-data"
+    },
+    "containerAppJobBillImage": {
+      "value": "mcr.microsoft.com/k8se/quickstart-jobs:latest"
+    },
+    "containerAppJobDataImage": {
+      "value": "mcr.microsoft.com/k8se/quickstart-jobs:latest"
+    },
+    "sqlServerName": {
+      "value": "sql-ae-revbc"
+    },
+    "sqlDatabaseName": {
+      "value": "db-ae-revbc"
+    },
+    "acrPrivateEndpointName": {
+      "value": "pe-ae-cr"
+    },
+    "caePrivateEndpointName": {
+      "value": "pe-ae-cae"
+    },
+    "sqlPrivateEndpointName": {
+      "value": "pe-ae-sql"
+    },
+    "sqlAdministratorLogin": {
+      "value": "sqladminrevbc"
+    }
+  }
+}
