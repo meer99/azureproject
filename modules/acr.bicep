@@ -32,7 +32,8 @@ resource dnsZone 'Microsoft.Network/privateDnsZones@2020-06-01' = {
 }
 
 resource dnsVnetLink 'Microsoft.Network/privateDnsZones/virtualNetworkLinks@2020-06-01' = {
-  name: '${dnsZone.name}/${uniqueString(vnetResourceId, privateEndpointName)}'
+  parent: dnsZone
+  name: uniqueString(vnetResourceId, privateEndpointName)
   location: 'global'
   properties: {
     registrationEnabled: false
@@ -65,7 +66,8 @@ resource privateEndpoint 'Microsoft.Network/privateEndpoints@2023-05-01' = {
 }
 
 resource zoneGroup 'Microsoft.Network/privateEndpoints/privateDnsZoneGroups@2023-05-01' = {
-  name: '${privateEndpoint.name}/default'
+  parent: privateEndpoint
+  name: 'default'
   properties: {
     privateDnsZoneConfigs: [
       {
