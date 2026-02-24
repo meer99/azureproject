@@ -55,8 +55,11 @@ module acrModule './modules/acr.bicep' = {
   name: 'acr-${environment}'
   params: {
     registryName: acrName
+    privateEndpointName: acrPrivateEndpointName
     location: location
+    subnetResourceId: privateEndpointSubnetResourceId
     userAssignedIdentityId: managedIdentityModule.outputs.identityId
+    vnetResourceId: networkVnetResourceId
     tags: tags
   }
 }
@@ -65,8 +68,11 @@ module caeModule './modules/cae.bicep' = {
   name: 'cae-${environment}'
   params: {
     environmentName: caeName
+    privateEndpointName: caePrivateEndpointName
     location: location
     infrastructureSubnetResourceId: caeInfrastructureSubnetResourceId
+    subnetResourceId: privateEndpointSubnetResourceId
+    vnetResourceId: networkVnetResourceId
     tags: tags
   }
 }
@@ -99,9 +105,12 @@ module sqlServerModule './modules/sql-server.bicep' = {
   name: 'sqlServer-${environment}'
   params: {
     serverName: sqlServerName
+    privateEndpointName: sqlPrivateEndpointName
     location: location
     administratorLogin: sqlAdministratorLogin
     administratorPassword: sqlAdministratorPassword
+    subnetResourceId: privateEndpointSubnetResourceId
+    vnetResourceId: networkVnetResourceId
     tags: tags
   }
 }
@@ -115,42 +124,6 @@ module sqlDatabaseModule './modules/sql-database.bicep' = {
     serverName: sqlServerName
     databaseName: sqlDatabaseName
     location: location
-    tags: tags
-  }
-}
-
-module acrPrivateEndpointModule './modules/private-endpoints/acr-private-endpoint.bicep' = {
-  name: 'acrPrivateEndpoint-${environment}'
-  params: {
-    privateEndpointName: acrPrivateEndpointName
-    location: location
-    subnetResourceId: privateEndpointSubnetResourceId
-    privateLinkResourceId: acrModule.outputs.registryId
-    vnetResourceId: networkVnetResourceId
-    tags: tags
-  }
-}
-
-module caePrivateEndpointModule './modules/private-endpoints/cae-private-endpoint.bicep' = {
-  name: 'caePrivateEndpoint-${environment}'
-  params: {
-    privateEndpointName: caePrivateEndpointName
-    location: location
-    subnetResourceId: privateEndpointSubnetResourceId
-    privateLinkResourceId: caeModule.outputs.environmentId
-    vnetResourceId: networkVnetResourceId
-    tags: tags
-  }
-}
-
-module sqlPrivateEndpointModule './modules/private-endpoints/sql-private-endpoint.bicep' = {
-  name: 'sqlPrivateEndpoint-${environment}'
-  params: {
-    privateEndpointName: sqlPrivateEndpointName
-    location: location
-    subnetResourceId: privateEndpointSubnetResourceId
-    privateLinkResourceId: sqlServerModule.outputs.serverId
-    vnetResourceId: networkVnetResourceId
     tags: tags
   }
 }
