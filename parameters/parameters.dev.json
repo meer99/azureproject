@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environment": {
+      "value": "dev"
+    },
+    "location": {
+      "value": "australiaeast"
+    },
+    "managedIdentityName": {
+      "value": "mi-ae-revbc"
+    },
+    "logAnalyticsName": {
+      "value": "log-ae-revbc"
+    },
+    "containerRegistryName": {
+      "value": "acraetestrevbc"
+    },
+    "containerAppsEnvironmentName": {
+      "value": "cae-ae-revbc"
+    },
+    "containerAppJob1Name": {
+      "value": "caj-ae-bill"
+    },
+    "containerAppJob2Name": {
+      "value": "caj-ae-data"
+    },
+    "sqlServerName": {
+      "value": "sql-ae-revbc"
+    },
+    "sqlAdminLogin": {
+      "value": "sqladmin"
+    },
+    "sqlDatabaseName": {
+      "value": "db-ae-revbc"
+    },
+    "crPrivateEndpointName": {
+      "value": "pe-ae-cr"
+    },
+    "caePrivateEndpointName": {
+      "value": "pe-ae-cae"
+    },
+    "sqlPrivateEndpointName": {
+      "value": "pe-ae-sql"
+    },
+    "networkResourceGroupName": {
+      "value": "rg-ae-net"
+    },
+    "vnetName": {
+      "value": "vnet-ae-net"
+    },
+    "subnetName": {
+      "value": "snet-ae-revbcnet"
+    }
+  }
+}
